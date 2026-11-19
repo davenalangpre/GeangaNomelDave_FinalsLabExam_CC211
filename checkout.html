@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart &amp; Prescription Checkout | OptiVue Eyewear</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main-content" class="visually-hidden-focusable skip-link">Skip to main content</a>
+
+  <!-- Shared Navigation Header -->
+  <header class="sticky-top bg-white border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light py-3" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold brand-logo" href="../index.html">
+          <span class="brand-icon d-inline-flex align-items-center justify-content-center rounded-2">
+            <i class="bi bi-eyeglasses fs-4 text-white" aria-hidden="true"></i>
+          </span>
+          <span>Opti<span class="text-accent">Vue</span></span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <a href="checkout.html" class="btn btn-outline-dark position-relative px-3 py-2" aria-label="View shopping cart">
+            <i class="bi bi-bag" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline ms-1">Cart</span>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">
+              0
+              <span class="visually-hidden">items in cart</span>
+            </span>
+          </a>
+
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse order-lg-2" id="mainNavbar">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold" href="catalog.html">Eyewear Catalog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active fw-semibold" aria-current="page" href="checkout.html">Cart &amp; Checkout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="py-5">
+    <div class="container">
+      <div class="mb-4">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb small mb-2">
+            <li class="breadcrumb-item"><a href="../index.html" class="text-decoration-none text-teal">Home</a></li>
+            <li class="breadcrumb-item"><a href="catalog.html" class="text-decoration-none text-teal">Catalog</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Cart &amp; Checkout</li>
+          </ol>
+        </nav>
+        <h1 class="h2 fw-bold text-navy">Shopping Bag &amp; Optical Prescription</h1>
+        <p class="text-secondary">Review your selected frames, enter your lens prescription parameters, and complete your order.</p>
+      </div>
+
+      <!-- Order Confirmation Banner (Hidden until valid submission) -->
+      <div id="orderConfirmationAlert" class="alert alert-success border-0 shadow-sm rounded-4 p-4 mb-4 d-none" role="alert">
+        <div class="d-flex align-items-start gap-3">
+          <i class="bi bi-check-circle-fill fs-2 text-success" aria-hidden="true"></i>
+          <div>
+            <h2 class="h5 fw-bold mb-1">Order Confirmed! Reference #<span id="orderRefNumber">OV-0000</span></h2>
+            <p id="orderConfirmationDetails" class="mb-2 small"></p>
+            <a href="catalog.html" class="btn btn-sm btn-success fw-semibold">Continue Shopping</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left Column: Dynamic Cart Summary -->
+        <div class="col-lg-5 order-lg-2">
+          <section class="bg-white p-4 rounded-4 shadow-sm border sticky-lg-top" style="top: 96px;" aria-labelledby="cart-summary-heading">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 id="cart-summary-heading" class="h5 fw-bold text-navy mb-0">Your Cart</h2>
+              <button type="button" id="clearCartBtn" class="btn btn-sm btn-outline-danger d-none">Clear All</button>
+            </div>
+
+            <!-- Cart Items List -->
+            <div id="cartItemsContainer" class="mb-3">
+              <!-- Rendered by assets/js/script.js -->
+            </div>
+
+            <!-- Order Totals Breakdown -->
+            <div id="cartTotalsBox" class="border-top pt-3 d-none">
+              <div class="d-flex justify-content-between small text-secondary mb-2">
+                <span>Frames Subtotal</span>
+                <span id="subtotalAmount">$0.00</span>
+              </div>
+              <div class="d-flex justify-content-between small text-secondary mb-2">
+                <span>Lens Coating Upgrade</span>
+                <span id="lensUpgradeAmount">$0.00</span>
+              </div>
+              <div class="d-flex justify-content-between small text-secondary mb-2">
+                <span>Insured Optical Shipping</span>
+                <span id="shippingAmount">$0.00</span>
+              </div>
+              <hr />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-navy">Total Due</span>
+                <span id="totalAmount" class="h4 fw-bold text-navy mb-0">$0.00</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column: Validated Prescription & Customer Checkout Form -->
+        <div class="col-lg-7 order-lg-1">
+          <form id="checkoutForm" class="bg-white p-4 p-md-5 rounded-4 shadow-sm border" novalidate>
+            <!-- Section 1: Customer Details -->
+            <fieldset class="mb-4">
+              <legend class="h5 fw-bold text-navy border-bottom pb-2 mb-3">1. Customer &amp; Shipping Information</legend>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="fullName" class="form-label fw-semibold text-navy">Full Name <span class="text-danger">*</span></label>
+                  <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Alex Rivera" required />
+                  <div class="invalid-feedback">Please enter your full name (at least 2 characters).</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="emailAddress" class="form-label fw-semibold text-navy">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" id="emailAddress" name="emailAddress" class="form-control" placeholder="alex.rivera@example.com" required />
+                  <div class="invalid-feedback">Please enter a valid email address for your digital receipt.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label fw-semibold text-navy">Phone Number <span class="text-danger">*</span></label>
+                  <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="+1 (555) 234-5678" required />
+                  <div class="invalid-feedback">Please enter a valid 7 to 15 digit phone number.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="shippingCity" class="form-label fw-semibold text-navy">City &amp; Postal Code <span class="text-danger">*</span></label>
+                  <input type="text" id="shippingCity" name="shippingCity" class="form-control" placeholder="Seattle, WA 98101" required />
+                  <div class="invalid-feedback">Please enter your city and postal code.</div>
+                </div>
+                <div class="col-12">
+                  <label for="shippingAddress" class="form-label fw-semibold text-navy">Street Address <span class="text-danger">*</span></label>
+                  <input type="text" id="shippingAddress" name="shippingAddress" class="form-control" placeholder="742 Evergreen Terrace, Apt 4B" required />
+                  <div class="invalid-feedback">Please enter your complete delivery street address.</div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Section 2: Optical Prescription Input -->
+            <fieldset class="mb-4">
+              <legend class="h5 fw-bold text-navy border-bottom pb-2 mb-3">2. Optical Prescription &amp; Lens Package</legend>
+
+              <div class="mb-3">
+                <label for="lensPackage" class="form-label fw-semibold text-navy">Lens Type &amp; Coating <span class="text-danger">*</span></label>
+                <select id="lensPackage" name="lensPackage" class="form-select" required>
+                  <option value="non-rx" data-price="0">Non-Prescription / Fashion Clear (+$0.00)</option>
+                  <option value="single-vision" data-price="35">Single Vision Anti-Reflective (+$35.00)</option>
+                  <option value="blue-light-rx" data-price="55">Prescription + Blue-Light Filter (+$55.00)</option>
+                  <option value="progressive" data-price="95">HD Digital Progressive (+$95.00)</option>
+                </select>
+                <div class="form-text text-secondary">Selecting a prescription lens enables OD/OS diopter validation below.</div>
+              </div>
+
+              <!-- Prescription Values Box -->
+              <div id="rxFieldsWrapper" class="p-3 rounded-3 bg-light border">
+                <p class="small fw-semibold text-navy mb-2">
+                  <i class="bi bi-eye me-1 text-teal" aria-hidden="true"></i> Diopter &amp; Pupillary Distance (Required for Rx Lenses)
+                </p>
+                <div class="row g-3">
+                  <div class="col-sm-4">
+                    <label for="odSphere" class="form-label small fw-semibold text-navy">Right Eye (OD) SPH</label>
+                    <input type="number" step="0.25" min="-12.00" max="12.00" id="odSphere" name="odSphere" class="form-control" placeholder="-1.50" />
+                    <div class="invalid-feedback">Must be between -12.00 and +12.00 (0.25 steps).</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="osSphere" class="form-label small fw-semibold text-navy">Left Eye (OS) SPH</label>
+                    <input type="number" step="0.25" min="-12.00" max="12.00" id="osSphere" name="osSphere" class="form-control" placeholder="-1.75" />
+                    <div class="invalid-feedback">Must be between -12.00 and +12.00 (0.25 steps).</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <label for="pdValue" class="form-label small fw-semibold text-navy">PD (mm)</label>
+                    <input type="number" step="0.5" min="50" max="78" id="pdValue" name="pdValue" class="form-control" placeholder="63" />
+                    <div class="invalid-feedback">Enter PD between 50 mm and 78 mm.</div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Form-Level Feedback Alert -->
+            <div id="formErrorBanner" class="alert alert-danger d-none small" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2" aria-hidden="true"></i>
+              <span id="formErrorText">Please correct the highlighted fields before placing your order.</span>
+            </div>
+
+            <button type="submit" id="placeOrderBtn" class="btn btn-primary-custom btn-lg w-100 py-3 fw-bold">
+              <i class="bi bi-lock-fill me-2" aria-hidden="true"></i>Complete Optical Order
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Shared Footer -->
+  <footer class="bg-navy text-white py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center gap-2 fw-bold fs-4 mb-3">
+            <i class="bi bi-eyeglasses text-accent" aria-hidden="true"></i>
+            <span>OptiVue Eyewear</span>
+          </div>
+          <p class="text-light-muted small mb-0">
+            Frontend E-Commerce Optical Laboratory Prototype. Built with semantic HTML5, WCAG AA accessible contrast, Bootstrap 5, and Vanilla JavaScript.
+          </p>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3 class="h6 fw-bold text-uppercase tracking-wide mb-3">Navigation</h3>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html" class="footer-link">Home</a></li>
+            <li><a href="catalog.html" class="footer-link">Eyewear Catalog</a></li>
+            <li><a href="checkout.html" class="footer-link">Cart &amp; Checkout</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-4">
+          <h3 class="h6 fw-bold text-uppercase tracking-wide mb-3">Customer Support</h3>
+          <p class="text-light-muted small mb-1"><i class="bi bi-envelope me-2" aria-hidden="true"></i>support@optivue-optical.example</p>
+          <p class="text-light-muted small mb-0"><i class="bi bi-clock me-2" aria-hidden="true"></i>Mon – Sat: 9:00 AM – 6:00 PM</p>
+        </div>
+      </div>
+      <hr class="border-secondary my-4" />
+      <p class="text-center text-light-muted extra-small mb-0">&copy; 2026 OptiVue Eyewear Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Application Script -->
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eyewear Catalog | OptiVue Eyewear</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <a href="#main-content" class="visually-hidden-focusable skip-link">Skip to main content</a>
+
+  <!-- Shared Navigation Header -->
+  <header class="sticky-top bg-white border-bottom shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light py-3" aria-label="Primary Navigation">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold brand-logo" href="../index.html">
+          <span class="brand-icon d-inline-flex align-items-center justify-content-center rounded-2">
+            <i class="bi bi-eyeglasses fs-4 text-white" aria-hidden="true"></i>
+          </span>
+          <span>Opti<span class="text-accent">Vue</span></span>
+        </a>
+
+        <div class="d-flex align-items-center gap-2 order-lg-3">
+          <a href="checkout.html" class="btn btn-outline-dark position-relative px-3 py-2" aria-label="View shopping cart">
+            <i class="bi bi-bag" aria-hidden="true"></i>
+            <span class="d-none d-sm-inline ms-1">Cart</span>
+            <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">
+              0
+              <span class="visually-hidden">items in cart</span>
+            </span>
+          </a>
+
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse order-lg-2" id="mainNavbar">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-3">
+            <li class="nav-item">
+              <a class="nav-link fw-semibold" href="../index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active fw-semibold" aria-current="page" href="catalog.html">Eyewear Catalog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold" href="checkout.html">Cart &amp; Checkout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="py-5">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="mb-4">
+        <nav aria-label="Breadcrumb">
+          <ol class="breadcrumb small mb-2">
+            <li class="breadcrumb-item"><a href="../index.html" class="text-decoration-none text-teal">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Eyewear Catalog</li>
+          </ol>
+        </nav>
+        <h1 class="h2 fw-bold text-navy">Eyewear Collection</h1>
+        <p class="text-secondary">Filter by category, search frame models, or sort by price to find your ideal fit.</p>
+      </div>
+
+      <!-- Filter, Search & Sort Control Panel -->
+      <section class="bg-white p-3 p-md-4 rounded-4 shadow-sm border mb-4" aria-label="Catalog Filters">
+        <div class="row g-3 align-items-end">
+          <!-- Category Filter Buttons -->
+          <div class="col-lg-6">
+            <span class="form-label fw-semibold text-navy d-block small mb-2">Filter by Category</span>
+            <div class="d-flex flex-wrap gap-2" role="group" aria-label="Frame categories">
+              <button type="button" class="btn filter-btn active" data-category="all">All Frames</button>
+              <button type="button" class="btn filter-btn" data-category="prescription">Prescription</button>
+              <button type="button" class="btn filter-btn" data-category="sunglasses">Sunglasses</button>
+              <button type="button" class="btn filter-btn" data-category="blue-light">Blue-Light</button>
+            </div>
+          </div>
+
+          <!-- Search Input with Accessible Label -->
+          <div class="col-sm-7 col-lg-4">
+            <label for="catalogSearch" class="form-label fw-semibold text-navy small">Search Frames</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-secondary" aria-hidden="true"></i></span>
+              <input type="search" id="catalogSearch" class="form-control border-start-0" placeholder="e.g., Aviator, Titanium, Round..." />
+            </div>
+          </div>
+
+          <!-- Sort Select with Accessible Label -->
+          <div class="col-sm-5 col-lg-2">
+            <label for="catalogSort" class="form-label fw-semibold text-navy small">Sort By</label>
+            <select id="catalogSort" class="form-select">
+              <option value="featured">Featured</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Results Count -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <p id="resultsCount" class="text-secondary small fw-medium mb-0" aria-live="polite">Showing 8 frames</p>
+        <button type="button" id="resetFiltersBtn" class="btn btn-link btn-sm text-teal text-decoration-none d-none">
+          Reset all filters
+        </button>
+      </div>
+
+      <!-- Product Grid (Populated via JS) -->
+      <div id="catalogGrid" class="row g-4">
+        <!-- Rendered by assets/js/script.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Frame Specification Modal (Bootstrap Component) -->
+  <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="modalFrameName" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="modal-header border-bottom">
+          <h2 class="modal-title h5 fw-bold text-navy" id="modalFrameName">Frame Details</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="row g-4 align-items-center">
+            <div class="col-md-6">
+              <div class="ratio ratio-4x3 rounded-3 overflow-hidden bg-light">
+                <img id="modalFrameImg" src="" alt="" class="w-100 h-100 object-fit-cover" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <span id="modalFrameCategory" class="badge bg-soft-teal text-teal text-uppercase mb-2">Category</span>
+              <p id="modalFramePrice" class="h3 fw-bold text-navy mb-2">$0.00</p>
+              <p id="modalFrameDesc" class="text-secondary small mb-3"></p>
+              <ul class="list-unstyled small bg-light p-3 rounded-3 mb-4">
+                <li class="mb-1"><strong>Material:</strong> <span id="modalFrameMaterial"></span></li>
+                <li class="mb-1"><strong>Frame Shape:</strong> <span id="modalFrameShape"></span></li>
+                <li class="mb-0"><strong>Dimensions:</strong> <span id="modalFrameDimensions"></span></li>
+              </ul>
+              <button type="button" id="modalAddToCartBtn" class="btn btn-primary-custom w-100 py-2 fw-semibold">
+                <i class="bi bi-bag-plus me-2" aria-hidden="true"></i>Add Frame to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="cartToast" class="toast align-items-center text-bg-dark border-0" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body d-flex align-items-center gap-2">
+          <i class="bi bi-check-circle-fill text-accent" aria-hidden="true"></i>
+          <span id="toastMessage">Frame added to cart.</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close notification"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Footer -->
+  <footer class="bg-navy text-white py-5 mt-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-5">
+          <div class="d-flex align-items-center gap-2 fw-bold fs-4 mb-3">
+            <i class="bi bi-eyeglasses text-accent" aria-hidden="true"></i>
+            <span>OptiVue Eyewear</span>
+          </div>
+          <p class="text-light-muted small mb-0">
+            Frontend E-Commerce Optical Laboratory Prototype. Built with semantic HTML5, WCAG AA accessible contrast, Bootstrap 5, and Vanilla JavaScript.
+          </p>
+        </div>
+        <div class="col-6 col-lg-3">
+          <h3 class="h6 fw-bold text-uppercase tracking-wide mb-3">Navigation</h3>
+          <ul class="list-unstyled small d-grid gap-2">
+            <li><a href="../index.html" class="footer-link">Home</a></li>
+            <li><a href="catalog.html" class="footer-link">Eyewear Catalog</a></li>
+            <li><a href="checkout.html" class="footer-link">Cart &amp; Checkout</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-4">
+          <h3 class="h6 fw-bold text-uppercase tracking-wide mb-3">Customer Support</h3>
+          <p class="text-light-muted small mb-1"><i class="bi bi-envelope me-2" aria-hidden="true"></i>support@optivue-optical.example</p>
+          <p class="text-light-muted small mb-0"><i class="bi bi-clock me-2" aria-hidden="true"></i>Mon – Sat: 9:00 AM – 6:00 PM</p>
+        </div>
+      </div>
+      <hr class="border-secondary my-4" />
+      <p class="text-center text-light-muted extra-small mb-0">&copy; 2026 OptiVue Eyewear Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Application Script -->
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>
